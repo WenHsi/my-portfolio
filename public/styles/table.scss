@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(68, 68, 68);
+  header {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  section {
+    color: white;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      padding: 1rem;
+    }
+
+    table,
+    tr,
+    td {
+      border: 1px solid white;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 0.25rem 0.5rem;
+    }
+    table {
+      font-size: 1.25rem;
+    }
+
+    a {
+      color: wheat;
+      font-size: 1.25rem;
+      padding: 0.25rem 0.5rem;
+    }
+  }
+}

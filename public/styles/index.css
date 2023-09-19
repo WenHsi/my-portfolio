@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body header {
+  text-align: center;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+body header a {
+  text-decoration: none;
+  color: white;
+}
+body main {
+  text-align: center;
+  padding: 20px;
+}
+body main section[id=project] {
+  margin-bottom: 30px;
+}
+body main section[id=project] h2 {
+  margin-bottom: 20px;
+}
+body main section[id=project] div[id=cards] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+body main section[id=project] div[id=cards] div[class=card] {
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  margin: 5px 20px 10px 20px;
+  margin-bottom: 10px;
+  max-width: 300px;
+  padding: 20px;
+  transition: all 0.75s;
+}
+body main section[id=project] div[id=cards] div[class=card]:hover {
+  transform: scale(1.1);
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+body main section[id=project] div[id=cards] div[class=card] img {
+  max-height: 215px;
+  max-width: 100%;
+}
+body main section[id=project] div[id=cards] div[class=card] h3 {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+body footer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #eee;
+  padding: 20px 0rem 30px 0rem;
+}
+body footer h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+body footer section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+body footer section div {
+  margin: 0rem 2rem;
+}
+body footer section div[id=description] {
+  line-height: 1.5rem;
+}
+body footer section div[id=description] div[id=myName] {
+  text-align: center;
+  padding: 15px;
+  margin: 5px 0px 8px 0px;
+}
+body footer section div[id=description] p a {
+  text-decoration: none;
+  color: rgb(196, 151, 94);
+  transition: all 0.8s ease;
+}
+body footer section div[id=description] p:hover,
+body footer section div[id=description] a:hover {
+  background-color: #777;
+  transform: scale(1.1);
+  color: rgb(255, 255, 255);
+}
+body footer section div[id=myPhoto] {
+  max-width: 300px;
+  transition: all 0.8s;
+}
+body footer section div[id=myPhoto] a img {
+  max-width: 100%;
+  border-radius: 50%;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+}
+body footer section div[id=myPhoto]:hover {
+  transform: scale(1.2);
+}/*# sourceMappingURL=index.css.map */

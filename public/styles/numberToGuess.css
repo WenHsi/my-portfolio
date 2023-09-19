@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  position: relative;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+header {
+  text-align: center;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+header a {
+  text-decoration: none;
+  color: white;
+}
+
+nav {
+  min-height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+nav h1,
+nav p {
+  margin: 1rem 1rem 0.75rem 1rem;
+}
+
+div[id=guess-area] {
+  max-width: 350px;
+  margin: 10px auto 1rem auto;
+  padding: 0.5rem;
+  border: 1px solid rgb(180, 163, 35);
+  background-color: rgb(255, 250, 238);
+}
+div[id=guess-area] label {
+  margin-bottom: 5px;
+  transition: all 0.8s;
+}
+div[id=guess-area] input[id=guess-button] {
+  transition: all 0.8s;
+}
+div[id=guess-area] p {
+  color: red;
+  transition: all 0.8s;
+}
+div[id=guess-area] p,
+div[id=guess-area] button {
+  margin-top: 0.8rem;
+}
+
+#guess-input {
+  transition: all 0.8s;
+  text-align: center;
+  width: 5rem;
+}
+
+div[id=answer-area] {
+  opacity: 0;
+  max-width: 350px;
+  margin: 10px auto 1rem auto;
+  padding: 0.5rem;
+  border: 1px solid rgb(180, 163, 35);
+  background-color: rgb(255, 250, 238);
+  transition: all 0.8s;
+}
+div[id=answer-area] p {
+  color: rgba(255, 0, 0, 0.467);
+  transition: all 0.8s;
+}
+div[id=answer-area]:hover p {
+  opacity: 1;
+}
+div[id=answer-area]:hover {
+  opacity: 0.75;
+}
+
+footer {
+  background-color: rgb(226, 226, 226);
+  padding: 2rem 2rem 2rem 2rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+footer a {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 0.5rem 0rem;
+  transition: all 0.8 ease;
+  text-decoration: none;
+  color: rgb(196, 151, 94);
+  transition: all 0.5s ease;
+}
+footer a:hover {
+  transform: scale(1.1);
+  color: rgb(199, 154, 96);
+}/*# sourceMappingURL=numberToGuess.css.map */

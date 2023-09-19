@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body header {
+  text-align: center;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+body header a {
+  text-decoration: none;
+  color: white;
+}
+body section[id=content] {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body section[id=content] h1 {
+  margin: 2rem 0.5rem 0rem 0.5rem;
+  padding: 0rem 0.5rem 1rem 0.5rem;
+  text-align: center;
+}
+body section[id=content] p {
+  text-align: center;
+  padding: 0rem 0.5rem 1rem 0.5rem;
+}
+body footer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #eee;
+  padding: 20px 0px 40px 0px;
+  margin: 1.5rem 0rem 0rem 0rem;
+}
+body footer h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+body footer section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+body footer section div {
+  margin: 0rem 2rem;
+}
+body footer section div[id=description] {
+  line-height: 1.5rem;
+}
+body footer section div[id=description] div[id=myName] {
+  text-align: center;
+  padding: 15px;
+  margin: 5px 0px 8px 0px;
+}
+body footer section div[id=description] p a {
+  text-decoration: none;
+  color: rgb(196, 151, 94);
+  transition: all 0.8s ease;
+}
+body footer section div[id=description] p:hover,
+body footer section div[id=description] a:hover {
+  background-color: #777;
+  transform: scale(1.1);
+  color: rgb(255, 255, 255);
+}
+body footer section div[id=myPhoto] {
+  max-width: 300px;
+  transition: all 0.8s;
+}
+body footer section div[id=myPhoto] a img {
+  max-width: 100%;
+  border-radius: 50%;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+}
+body footer section div[id=myPhoto]:hover {
+  transform: scale(1.2);
+}/*# sourceMappingURL=joke.css.map */

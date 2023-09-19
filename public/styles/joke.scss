@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+// html {
+//   // height: 100%;
+// }
+body {
+  // min-height: 80vh;
+  // position: relative;
+  header {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+  section[id="content"] {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h1 {
+      margin: 2rem 0.5rem 0rem 0.5rem;
+      padding: 0rem 0.5rem 1rem 0.5rem;
+      text-align: center;
+    }
+    p {
+      text-align: center;
+      padding: 0rem 0.5rem 1rem 0.5rem;
+    }
+  }
+
+  footer {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #eee;
+    padding: 20px 0px 40px 0px;
+    margin: 1.5rem 0rem 0rem 0rem;
+    // position: absolute;
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      // max-width: 600px;
+      div {
+        margin: 0rem 2rem;
+      }
+      div[id="description"] {
+        // max-width: 300px;
+        div[id="myName"] {
+          text-align: center;
+          padding: 15px;
+          margin: 5px 0px 8px 0px;
+        }
+        line-height: 1.5rem;
+        p a {
+          text-decoration: none;
+          color: rgb(196, 151, 94);
+          transition: all 0.8s ease;
+        }
+        p:hover,
+        a:hover {
+          background-color: #777;
+          transform: scale(1.1);
+          color: rgb(255, 255, 255);
+        }
+      }
+      // div {
+      //   display: inline-block;
+      // }
+      div[id="myPhoto"] {
+        max-width: 300px;
+        transition: all 0.8s;
+        a {
+          img {
+            max-width: 100%;
+            border-radius: 50%;
+            box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+          }
+        }
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}

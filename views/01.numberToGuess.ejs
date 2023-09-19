@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <meta name="robots" content="noindex" />
+    <meta name="googlebot" content="noindex" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:image" content="./images/my01.jpg" />
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:width" content="436" />
+    <meta property="og:image:height" content="228" />
+    <meta property="og:title" content="Wenwu 作品集" />
+    <meta
+      property="og:description"
+      content="一位對程式有興趣的青年男子的作品"
+    />
+    <link rel="icon" href="./images/my01-square.jpg" type="image/x-icon" />
+    <link href="./images/my01-square.jpg" rel="apple-touch-icon" />
+    <title>猜數字小遊戲</title>
+    <link rel="stylesheet" href="/styles/numberToGuess.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/"><h1>Wenwu 作品集</h1></a>
+    </header>
+
+    <nav>
+      <h1>猜數字小遊戲</h1>
+      <p id="times">答對次數：0</p>
+    </nav>
+
+    <div id="guess-area">
+      <label for="guess-input">請猜一個1~100的數字：</label>
+      <input
+        id="guess-input"
+        type="number"
+        name="guess-input"
+        min="1"
+        max="100"
+        required
+      />
+      <input type="submit" id="guess-button" />
+      <p id="result-area">猜的到嗎？</p>
+      <button id="replay">重新出題</button>
+    </div>
+    <div id="answer-area">
+      <p id="answer">正確答案是🤫：</p>
+    </div>
+    <footer>
+      <a href="/"><p>作者： Wenwu</p></a>
+      <a href="mailto:kevinwen2014@gmail.com">
+        <p>信箱：wenwu.me@gmail.com</p>
+      </a>
+    </footer>
+
+    <script src="/scripts/01.numberToGuess.js"></script>
+  </body>
+</html>

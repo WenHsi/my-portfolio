@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  position: relative;
+  // padding-bottom: [footer-height];
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+header {
+  text-align: center;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+nav {
+  min-height: 30vh;
+  // border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  h1,
+  p {
+    // border: 1px solid red;
+    margin: 1rem 1rem 0.75rem 1rem;
+  }
+}
+div[id="guess-area"] {
+  max-width: 350px;
+  margin: 10px auto 1rem auto;
+  padding: 0.5rem;
+  border: 1px solid rgb(180, 163, 35);
+  background-color: rgb(255, 250, 238);
+  // min-height: 75%;
+  label {
+    margin-bottom: 5px;
+    transition: all 0.8s;
+  }
+  // input {
+  //   display: inline-block;
+  // }
+
+  input[id="guess-button"] {
+    transition: all 0.8s;
+  }
+  p {
+    color: red;
+    transition: all 0.8s;
+  }
+  p,
+  button {
+    margin-top: 0.8rem;
+    // transition: all 0.8s;
+  }
+  // label:hover,
+  // input:hover,
+  // p:hover,
+  // button:hover {
+  //   font-size: 1.2rem;
+  // }
+}
+
+#guess-input {
+  transition: all 0.8s;
+  text-align: center;
+  width: 5rem;
+}
+
+div[id="answer-area"] {
+  // visibility: hidden;
+
+  opacity: 0;
+  max-width: 350px;
+  margin: 10px auto 1rem auto;
+  padding: 0.5rem;
+  border: 1px solid rgb(180, 163, 35);
+  background-color: rgb(255, 250, 238);
+  transition: all 0.8s;
+  p {
+    color: rgba(255, 0, 0, 0.467);
+    transition: all 0.8s;
+  }
+  &:hover p {
+    opacity: 1;
+  }
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+footer {
+  background-color: rgb(226, 226, 226);
+  padding: 2rem 2rem 2rem 2rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  a {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0.5rem 0rem;
+    transition: all 0.8 ease;
+    text-decoration: none;
+    color: rgb(196, 151, 94);
+    transition: all 0.5s ease;
+    &:hover {
+      transform: scale(1.1);
+      color: rgb(199, 154, 96);
+    }
+  }
+}
