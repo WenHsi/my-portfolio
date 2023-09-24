@@ -4,10 +4,12 @@ import fetch from "node-fetch";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import Student from "./models/student.js";
+import methodOverride from "method-override";
 const app = express();
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
 mongoose
@@ -155,6 +157,61 @@ app.get("/students/edit/:id", async (req, res) => {
   } catch {
     res.render("04.studentFindError.ejs");
   }
+});
+app.put("/students/edit/:id", async (req, res) => {
+  let { id, name, age, merit, other } = req.body;
+  try {
+    let personData = await Student.findOneAndUpdate(
+      { id },
+      { id, name, age, scholarship: { merit, other } },
+      { new: true, runValidators: true }
+    );
+    res.redirect(`/students/${id}`);
+  } catch {
+    res.render("04.studentFindError.ejs");
+  }
+});
+
+app.get("/students/delete/:id", async (req, res) => {
+  let { id } = req.params;
+  try {
+    let personData = await Student.findOne({ id });
+    if (personData !== null) {
+      res.render("04.studentDelete.ejs", { personData });
+    } else {
+      res.render("04.studentNotFound.ejs");
+    }
+  } catch {
+    res.render("04.studentFindError.ejs");
+  }
+});
+
+app.delete("/students/delete/:id", (req, res) => {
+  let { id } = req.params;
+  console.log(req.params);
+  try {
+    Student.deleteOne({ id })
+      .then((meg) => {
+        console.log(meg);
+        res.render("04.deleteSuccessfully.ejs");
+      })
+      .catch((e) => {
+        console.log(e);
+        res.render("04.deleteFailed.ejs");
+      });
+  } catch {
+    res.render("04.studentFindError.ejs");
+  }
+});
+
+app.get("/truth", (req, res) => {
+  function tag() {
+    let inputString = "";
+    let replacedString = inputString.replace(/，/g, ",");
+    return replacedString;
+  }
+
+  res.send(`${tag()}`);
 });
 
 app.get("/*", (req, res) => {

@@ -22,7 +22,7 @@
     />
     <link rel="icon" href="/images/my01-square.jpg" type="image/x-icon" />
     <link href="/images/my01-square.jpg" rel="apple-touch-icon" />
-    <title>Students Page</title>
+    <title>Delete Successfully.</title>
     <link rel="stylesheet" href="/styles/student.css" />
   </head>
   <body>
@@ -30,30 +30,9 @@
       <a href="/"><h1>Wenwu 作品集</h1></a>
     </header>
 
-    <section id="studentsList">
-      <h1>學生列表</h1>
-      <ul>
-        <% studentsData.forEach(student=>{%>
-        <li>
-          <a href="/students/<%= student.id %> "><%= student.name%></a>
-          <a
-            href="/students/edit/<%= student.id %>"
-            style="font-size: 1rem; color: rgb(228, 228, 228)"
-            >編輯此資料</a
-          >
-          <a
-            href="/students/delete/<%= student.id %>"
-            style="font-size: 1rem; color: rgb(228, 228, 228)"
-            >刪除此資料</a
-          >
-        </li>
-        <%}) %>
-      </ul>
+    <section id="dataSubmit">
+      <h1>Delete failed!!</h1>
     </section>
-    <br />
-    <a id="toLastPage" href="/students/insert">點擊輸入資料</a>
-    <a id="toLastPage" href="/">回首頁</a>
-    <br />
-    <br />
+    <a id="toLastPage" href="/students">Go back to students page.</a>
   </body>
 </html>

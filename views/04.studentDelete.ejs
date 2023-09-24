@@ -22,33 +22,66 @@
     />
     <link rel="icon" href="/images/my01-square.jpg" type="image/x-icon" />
     <link href="/images/my01-square.jpg" rel="apple-touch-icon" />
-    <title>Add New Student</title>
+    <title>Delete: ID <%= personData.id %></title>
     <link rel="stylesheet" href="/styles/student.css" />
   </head>
   <body>
     <header>
       <a href="/"><h1>Wenwu 作品集</h1></a>
     </header>
-
     <section id="insertForm">
-      <h1>輸入資料</h1>
-      <form action="/students/insert" method="POST">
+      <h1 style="color: rgb(255, 81, 81)">確定刪除此資料 ？</h1>
+      <form
+        action="/students/delete/<%= personData.id %> ?_method=DELETE"
+        method="POST"
+      >
         <label for="id">ID:</label>
-        <input type="number" id="id" name="id" />
+        <input
+          type="number"
+          id="id"
+          name="id"
+          value="<%= personData.id %>"
+          disabled="disabled"
+        />
         <br />
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="<%= personData.name %>"
+          disabled="disabled"
+        />
         <br />
         <label for="age">Age:</label>
-        <input type="number" id="age" name="age" />
+        <input
+          type="number"
+          id="age"
+          name="age"
+          value="<%= personData.age %>"
+          disabled="disabled"
+        />
         <br />
         <label for="merit">Scholarship Merit:</label>
-        <input type="number" id="merit" name="merit" />
+        <input
+          type="number"
+          id="merit"
+          name="merit"
+          value="<%= personData.scholarship.merit %>"
+          disabled="disabled"
+        />
         <br />
         <label for="other">Scholarship Other:</label>
-        <input type="number" id="other" name="other" />
+        <input
+          type="number"
+          id="other"
+          name="other"
+          value="<%=
+        personData.scholarship.other %>"
+          disabled="disabled"
+        />
         <br />
-        <button>Submit</button>
+        <button>確定刪除</button>
       </form>
     </section>
     <a id="toLastPage" href="/students">Go back to students page.</a>
