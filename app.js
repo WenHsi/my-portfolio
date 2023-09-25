@@ -93,7 +93,7 @@ app.get("/joke", async (req, res) => {
   res.render("03.joke.ejs", { joke, setup, delivery });
 });
 
-app.get("/studentApi", async (req, res) => {
+app.get("/studentsApi", async (req, res) => {
   try {
     let studentsData = await Student.find({});
     if (studentsData != "") {
@@ -105,7 +105,7 @@ app.get("/studentApi", async (req, res) => {
     res.status(404).send({ studentsData: "The data not found." });
   }
 });
-app.get("/studentApi/:id", async (req, res) => {
+app.get("/studentsApi/:id", async (req, res) => {
   let { id } = req.params;
   try {
     let studentsData = await Student.findOne({ id });
