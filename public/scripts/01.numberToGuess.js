@@ -32,7 +32,7 @@ guessButton.addEventListener("click", () => {
     ];
     resultArea.innerHTML = correctDescription[randomDescription];
     addTimes++;
-    times.innerHTML = `答對次數：${addTimes}`;
+    times.innerHTML = addTimes;
     guess.disabled = true;
     guessButton.disabled = true;
   } else if (guess.value.length == 0) {

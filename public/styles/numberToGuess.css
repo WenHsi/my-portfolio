@@ -35,31 +35,40 @@ nav {
   justify-content: center;
   align-items: flex-end;
 }
-nav h1,
+nav h1 {
+  margin: 0rem 1rem 0.75rem 0rem;
+}
 nav p {
-  margin: 1rem 1rem 0.75rem 1rem;
+  display: inline;
+  margin: 0rem 0rem 0.75rem 0rem;
+}
+nav p[id=times] {
+  color: red;
 }
 
-div[id=guess-area] {
+form[id=guess-area] {
   max-width: 350px;
   margin: 10px auto 1rem auto;
   padding: 0.5rem;
   border: 1px solid rgb(180, 163, 35);
   background-color: rgb(255, 250, 238);
 }
-div[id=guess-area] label {
+form[id=guess-area] label {
   margin-bottom: 5px;
   transition: all 0.8s;
 }
-div[id=guess-area] input[id=guess-button] {
+form[id=guess-area] input[id=guess-button] {
   transition: all 0.8s;
 }
-div[id=guess-area] p {
+form[id=guess-area] p {
   color: red;
   transition: all 0.8s;
 }
-div[id=guess-area] p,
-div[id=guess-area] button {
+form[id=guess-area] input[id=replay] {
+  margin-bottom: 0.8rem;
+}
+form[id=guess-area] p,
+form[id=guess-area] input {
   margin-top: 0.8rem;
 }
 

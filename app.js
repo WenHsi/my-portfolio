@@ -5,12 +5,41 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import Student from "./models/student.js";
 import methodOverride from "method-override";
+import cookieParser from "cookie-parser";
+import session from "express-session";
 const app = express();
 
+//app.use({
+ // secret: "Should be an env variable but not for now",
+ // resave: false,
+  //saveUninitialized: false,
+//});
+app.set("view engine", "ejs");
+app.use(cookieParser("WenwuLock"));
+app.use("/", (req, res, next) => {
+  // console.log(req.url);
+  if (/\.(scss|map)$/.test(req.url)) {
+    //  如果请求的 URL 以 .scss 或 .map 结尾，禁止访问
+    res.status(200).send("Source Map is not accessible.");
+  } else {
+    // 否则，继续处理请求
+    next();
+  }
+});
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.set("view engine", "ejs");
+// app.use("/students", (req, res, next) => {
+//   // req.method = "DELETE";
+//   console.log(req.method);
+//   // res.send("Middleware page.");
+//   console.log("We reach this middleware.");
+//   next();
+// });
+const studentsMiddleware = (req, res, next) => {
+  console.log("This is students middleware.");
+  next();
+};
 
 mongoose
   .connect("mongodb://localhost:27017/studentDB", {
@@ -43,6 +72,18 @@ app.get("/ex", (req, res) => {
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
+
+app.get("/cookie", (req, res) => {
+  // res.cookie("address", "Taiwan", { signed: true });
+  // console.log(req.signedCookies);
+  let { address } = req.signedCookies;
+  console.log(req.signedCookies);
+  // res.clearCookie(" address ");
+  // let addressJSON = JSON.stringify(address);
+
+  res.send(`Cookie has been send. ${address}`);
+});
+
 app.get("/index.html", (req, res) => {
   res.render("index.ejs");
 });
@@ -119,6 +160,108 @@ app.get("/studentsApi/:id", async (req, res) => {
   }
 });
 
+app.post("/studentsApi", (req, res) => {
+  let { id, name, age, merit, other } = req.body;
+  let newStudent = new Student({
+    id,
+    name,
+    age,
+    scholarship: { merit, other },
+  });
+  newStudent
+    .save()
+    .then(() => {
+      console.log("Student accepted.");
+      res.send({ message: "Successfully post a new student." });
+    })
+    .catch((error) => {
+      // console.log(e);
+      console.log(error.message);
+      if (
+        error.code == 11000 &&
+        error.message.includes("E11000 duplicate key error collection")
+      ) {
+        res.send({ message: "Id is repeated." });
+      } else {
+        console.log("Student not accepted.");
+        // console.log(e);
+        // res.send({ message: "Some keys exceed the limit." });
+        res.status(404).send(error);
+      }
+    });
+});
+
+app.put("/studentsApi", async (req, res) => {
+  let { id, name, age, merit, other } = req.body;
+  try {
+    let d = await Student.findOneAndReplace(
+      { id },
+      { id, name, age, scholarship: { merit, other } },
+      { new: true, runValidators: true }
+    );
+    console.log(d);
+    res.send({ message: "Data is being updated using the 'put' method." });
+  } catch (e) {
+    if (e.name === "ValidationError") {
+      res.status(400).send({ message: "Validation error", errors: e.errors });
+    } else {
+      res.status(500).send({ message: "Internal server error", error: e });
+    }
+  }
+});
+
+app.patch("/studentsApi", async (req, res) => {
+  console.log(req.body);
+  let { id, name, age, merit, other } = req.body;
+  try {
+    let d = await Student.findOneAndUpdate(
+      { id },
+      { id, name, age, scholarship: { merit, other } },
+      { new: true, runValidators: true }
+    );
+    console.log(d);
+    if (d != null) {
+      res.send({ message: "Data is being updated using the 'put' method." });
+    } else {
+      res.status(404).send({ message: "ID not found." });
+    }
+  } catch (e) {
+    if (e.name === "ValidationError") {
+      res.status(400).send({ message: "Validation error", errors: e.errors });
+    } else {
+      res.status(500).send({ message: "Internal server error", error: e });
+    }
+  }
+});
+
+app.delete("/studentsApi/all", (req, res) => {
+  let d = Student.deleteMany({})
+    .then((meg) => {
+      console.log(meg);
+      if (meg.deletedCount != 0) {
+        res.send({ message: "Deleted all data successfully." });
+      } else res.status(404).send({ message: "Delete has failed." });
+    })
+    .catch((e) => {
+      console.log(meg);
+      res.status(404).send({ message: "Delete has failed." });
+    });
+});
+
+app.delete("/studentsApi/:id", (req, res) => {
+  let { id } = req.params;
+  let d = Student.deleteOne({ id })
+    .then((meg) => {
+      console.log(meg);
+      if (meg.deletedCount != 0) {
+        res.send({ message: "Deleted successfully." });
+      } else res.status(404).send({ message: "Delete has failed." });
+    })
+    .catch((e) => {
+      res.status(404).send({ message: "Delete has failed." });
+    });
+});
+
 app.get("/students", async (req, res) => {
   try {
     let studentsData = await Student.find();
@@ -167,7 +310,13 @@ app.post("/students/insert", (req, res) => {
     .catch((e) => {
       console.log("Student not accepted.");
       // console.log(e);
-      res.render("04.reject.ejs");
+      if (e.code == 11000 && e.message.includes("E11000 duplicate key error")) {
+        res.send(
+          "<h1 style='color:red; font-size: 10rem'>The same ID is not allowed.</h1>"
+        );
+      } else {
+        res.render("04.reject.ejs");
+      }
     });
 });
 
@@ -188,13 +337,17 @@ app.put("/students/edit/:id", async (req, res) => {
   let { id, name, age, merit, other } = req.body;
   try {
     let personData = await Student.findOneAndUpdate(
-      { id },
+      req.params,
       { id, name, age, scholarship: { merit, other } },
       { new: true, runValidators: true }
     );
     res.redirect(`/students/${id}`);
-  } catch {
-    res.render("04.studentFindError.ejs");
+  } catch (e) {
+    if (id != req.params.id && e.codeName == "DuplicateKey") {
+      res.render("04.ErrorSameID.ejs");
+    } else {
+      res.render("04.studentFindError.ejs");
+    }
   }
 });
 
@@ -242,6 +395,10 @@ app.get("/truth", (req, res) => {
 
 app.get("/*", (req, res) => {
   res.status(404).render("404.ejs");
+});
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send("Somethong is broken. We will fix it soon");
 });
 
 app.listen(3000, () => {

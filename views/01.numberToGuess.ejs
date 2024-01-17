@@ -32,10 +32,11 @@
 
     <nav>
       <h1>猜數字小遊戲</h1>
-      <p id="times">答對次數：0</p>
+      <p >答對次數：</p>
+      <p id="times">0</p>
     </nav>
 
-    <div id="guess-area">
+    <form id="guess-area">
       <label for="guess-input">請猜一個1~100的數字：</label>
       <input
         id="guess-input"
@@ -45,10 +46,10 @@
         max="100"
         required
       />
-      <input type="submit" id="guess-button" />
+      <input type="button" id="guess-button" value="送出" />
       <p id="result-area">猜的到嗎？</p>
-      <button id="replay">重新出題</button>
-    </div>
+      <input type="button" id="replay" value="重新出題" />
+    </form>
     <div id="answer-area">
       <p id="answer">正確答案是🤫：</p>
     </div>
