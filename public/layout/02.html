@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <meta name="robots" content="noindex" />
+    <meta name="googlebot" content="noindex" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:image" content="/images/my01.jpg" />
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:width" content="436" />
+    <meta property="og:image:height" content="228" />
+    <meta property="og:title" content="Wenwu 作品集" />
+    <meta
+      property="og:description"
+      content="一位對程式有興趣的青年男子的作品"
+    />
+    <link rel="icon" href="/images/my01-square.jpg" type="image/x-icon" />
+    <link href="/images/my01-square.jpg" rel="apple-touch-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/cssreset.css" />
+    <link rel="stylesheet" href="/styles/layout/" />
+    <title>互動圖文卡片 NO002</title>
+    <style>
+      body {
+        background-color: black;
+      }
+      .container {
+        width: 100%;
+        max-width: 1440px;
+        /* height: 100vh; */
+        font-size: 0;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+      .warp {
+        width: 360px;
+        position: relative;
+      }
+      .warp > img {
+        width: 100%;
+        vertical-align: top;
+      }
+      .warp > .text {
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        margin: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        opacity: 0;
+        transition: all 1s ease;
+      }
+      .warp > .text > h3 {
+        font-size: 50px;
+        font-weight: 500;
+        margin: 0;
+        margin-bottom: 1rem;
+      }
+      .warp > .text > h3::after {
+        content: " ";
+        display: block;
+        width: 0%;
+        border-bottom: 2px solid rgb(255, 255, 255);
+
+        margin-top: 1rem;
+        transition: width 0.7s 0.6s ease;
+      }
+      .warp:hover h3::after {
+        width: 100%;
+      }
+      .warp > .text > p {
+        font-size: 20px;
+        font-weight: 300;
+      }
+      .warp:hover .text {
+        opacity: 100;
+        color: rgb(253, 253, 81);
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="warp">
+        <img src="https://picsum.photos/500/300?random=745" alt="photo" />
+        <div class="text">
+          <h3>美好的心情</h3>
+          <p>每天保持好心情，讓身體更健康</p>
+        </div>
+      </div>
+
+      <div class="warp">
+        <img src="https://picsum.photos/500/300?random=441" alt="photo" />
+        <div class="text">
+          <h3>美好的心情</h3>
+          <p>每天保持好心情，讓身體更健康</p>
+        </div>
+      </div>
+
+      <div class="warp">
+        <img src="https://picsum.photos/500/300?random=421" alt="photo" />
+        <div class="text">
+          <h3>美好的心情</h3>
+          <p>每天保持好心情，讓身體更健康</p>
+        </div>
+      </div>
+
+      <div class="warp">
+        <img src="https://picsum.photos/500/300?random=589" alt="photo" />
+        <div class="text">
+          <h3>美好的心情</h3>
+          <p>每天保持好心情，讓身體更健康</p>
+        </div>
+      </div>
+
+      <div class="warp">
+        <img src="https://picsum.photos/500/300?random=595" alt="photo" />
+        <div class="text">
+          <h3>美好的心情</h3>
+          <p>每天保持好心情，讓身體更健康</p>
+        </div>
+      </div>
+
+      <div class="warp">
+        <img src="https://picsum.photos/500/300?random=555" alt="photo" />
+        <div class="text">
+          <h3>美好的心情</h3>
+          <p>每天保持好心情，讓身體更健康</p>
+        </div>
+      </div>
+
+      <div class="warp">
+        <img src="https://picsum.photos/500/300?random=575" alt="photo" />
+        <div class="text">
+          <h3>美好的心情</h3>
+          <p>每天保持好心情，讓身體更健康</p>
+        </div>
+      </div>
+
+      <div class="warp">
+        <img src="https://picsum.photos/500/300?random=293" alt="photo" />
+        <div class="text">
+          <h3>美好的心情</h3>
+          <p>每天保持好心情，讓身體更健康</p>
+        </div>
+      </div>
+
+      <div class="warp">
+        <img src="https://picsum.photos/500/300?random=378" alt="photo" />
+        <div class="text">
+          <h3>美好的心情</h3>
+          <p>每天保持好心情，讓身體更健康</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

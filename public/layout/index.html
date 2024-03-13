@@ -20,79 +20,88 @@
       property="og:description"
       content="一位對程式有興趣的青年男子的作品"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
     <link rel="icon" href="/images/my01-square.jpg" type="image/x-icon" />
     <link href="/images/my01-square.jpg" rel="apple-touch-icon" />
-    <title>Wenwu作品集</title>
+    <title>切版 | 主頁面</title>
     <link rel="stylesheet" href="/styles/index.css" />
   </head>
+
+  <style>
+    #project > h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    #project > a {
+      display: inline-block;
+      text-decoration: none;
+      margin-bottom: 1rem;
+      padding: 0.25rem;
+      color: black;
+      letter-spacing: 2px;
+      background-color: aquamarine;
+      border-radius: 15%;
+    }
+    #project > a:hover {
+      background-color: orange;
+      color: white;
+    }
+
+    #cards h3 {
+      font-weight: 400;
+    }
+  </style>
   <body>
     <header>
-      <a href="#"><h1>Wenwu 作品集</h1></a>
+      <a href="#"><h1>Wenwu 切版集</h1></a>
     </header>
 
     <main>
       <section id="project">
-        <h2>特色項目</h2>
+        <h2>項目</h2>
+        <a
+          href="https://youtube.com/playlist?list=PLqivELodHt3hxeuLX8PYaI8u1GcDaBoJo&si=CYad71LJ9tJBNIHD"
+          >練習來源</a
+        >
         <div id="cards">
-          <div class="card" id="temp">
-            <a href="/layout/index.html"
-              ><img src="/images/layout/金魚切版訓練.jpg" alt="unseen"
-            /></a>
-            <h3>切版訓練</h3>
-            <p>Amos的金魚切版訓練</p>
-            <div>切版訓練</div>
-          </div>
-
           <div class="card">
-            <a href="/numberToGuess/"
-              ><img src="/images/p1-numberToGuess.png" alt="numberToGuess"
+            <a href="/layout/01.html"
+              ><img src="/images/layout/layout-01.png" alt="NO001"
             /></a>
-            <h3>猜數字小遊戲</h3>
-            <p>隨機生成1個數字，從1~100的數字猜猜看</p>
-            <div>js小遊戲</div>
-          </div>
-
-          <div class="card">
-            <a href="/weather/"
-              ><img src="/images/p2-weatherSearch.jpg" alt="weatherSearch"
-            /></a>
-            <h3>天氣搜尋</h3>
-            <p>
-              您可以將城市或國家/地區的名稱附加到 URL 末尾。<small
-                >(Use OpenWeather API)</small
-              >
-            </p>
-            <div>串接API</div>
-          </div>
-
-          <div class="card">
-            <a href="/joke/"><img src="/images/p3-joke.png" alt="joke" /></a>
-            <h3>笑話</h3>
-            <p>查詢英文笑話<small> (Use joke API)</small></p>
-            <div>串接API</div>
-          </div>
-
-          <div class="card">
-            <a href="/students/"
-              ><img src="/images/p4-student.jpg" alt="students"
-            /></a>
-            <h3>學生資料庫</h3>
-            <p>串接後端資料庫練習</p>
-            <div>資料庫練習</div>
+            <h3>圖文滿版區塊</h3>
+            <p>NO001</p>
           </div>
 
           <div class="card" id="temp">
-            <a href="#temp"><img src="/images/p0-unseen.jpg" alt="unseen" /></a>
+            <a href="/layout/02.html"
+              ><img src="/images/layout/layout-02.png" alt="NO002"
+            /></a>
+            <h3>互動圖文卡片</h3>
+            <p>NO002</p>
+          </div>
+
+          <div class="card" id="temp">
+            <a href="/layout/03.html"
+              ><img src="/images/p0-unseen.jpg" alt="NO003"
+            /></a>
+            <h3>人員介紹卡片</h3>
+            <p>NO003</p>
+          </div>
+
+          <div class="card" id="temp">
+            <a href="/layout/04.html"
+              ><img src="/images/p0-unseen.jpg" alt="NO004"
+            /></a>
             <h3>看不到</h3>
-            <p>我不知道這是甚麼內容</p>
+            <p>NO004</p>
           </div>
-          <div></div>
+
+          <div class="card" id="temp">
+            <a href="/layout/05.html"
+              ><img src="/images/p0-unseen.jpg" alt="NO005"
+            /></a>
+            <h3>看不到</h3>
+            <p>NO005</p>
+          </div>
         </div>
       </section>
     </main>

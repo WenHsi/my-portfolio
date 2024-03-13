@@ -1,87 +1,80 @@
+import "dotenv/config";
 import express from "express";
-import ejs from "ejs";
 import fetch from "node-fetch";
-import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import Student from "./models/student.js";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import flash from "connect-flash";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import studentsRouter from "./routers/studentsRouter.js";
+import redirect from "./routers/redirect.js";
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-//app.use({
- // secret: "Should be an env variable but not for now",
- // resave: false,
-  //saveUninitialized: false,
-//});
-app.set("view engine", "ejs");
-app.use(cookieParser("WenwuLock"));
+// app.set("views", "views");
 app.use("/", (req, res, next) => {
-  // console.log(req.url);
   if (/\.(scss|map)$/.test(req.url)) {
     //  如果请求的 URL 以 .scss 或 .map 结尾，禁止访问
     res.status(200).send("Source Map is not accessible.");
   } else {
-    // 否则，继续处理请求
     next();
   }
 });
+
+app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-// app.use("/students", (req, res, next) => {
-//   // req.method = "DELETE";
-//   console.log(req.method);
-//   // res.send("Middleware page.");
-//   console.log("We reach this middleware.");
-//   next();
-// });
-const studentsMiddleware = (req, res, next) => {
-  console.log("This is students middleware.");
-  next();
-};
-
-mongoose
-  .connect("mongodb://localhost:27017/studentDB", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+app.use(cookieParser("process.env.SECRET"));
+app.use(
+  session({
+    secret: "process.env.SECRET",
+    resave: false,
+    saveUninitialized: false,
   })
-  .then(() => {
-    console.log("Successfully connected to mongoDB.");
-  })
-  .catch((e) => {
-    console.log("Connection failed.");
-    console.log(e);
-  });
-
-//redirect
-app.get("/v", (req, res) => {
-  res.redirect("https://loudness.info");
-});
-
-app.get("/cs", (req, res) => {
-  res.redirect("https://meet.shenxunchat.com/joinRoom/cs");
-});
-
-app.get("/ex", (req, res) => {
-  res.redirect("https://meet.shenxunchat.com/joinRoom/exercise");
-});
-//
-//
+);
+app.use(flash());
+app.use("/students", studentsRouter);
+app.use("/redirect", redirect);
 
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
 
-app.get("/cookie", (req, res) => {
-  // res.cookie("address", "Taiwan", { signed: true });
-  // console.log(req.signedCookies);
-  let { address } = req.signedCookies;
-  console.log(req.signedCookies);
-  // res.clearCookie(" address ");
-  // let addressJSON = JSON.stringify(address);
+app.get("/test", (req, res) => {
+  res.render("test.ejs");
+});
 
-  res.send(`Cookie has been send. ${address}`);
+app.get("/fusen", (req, res) => {
+  res.sendFile("/fusen/index.html");
+});
+
+app.get("/signup", (req, res) => {
+  res.render("signup.ejs");
+});
+
+app.get("/session", (req, res) => {
+  console.log(process.env.SECRET);
+  req.flash("success_msg", "Successfully get to the homepage.");
+  res.send("Hi, " + req.flash("success_msg"));
+});
+
+app.get("/verifyUser", (req, res) => {
+  req.session.isVerified = true;
+  console.log(req.session);
+  res.send("<h1>You are verified.</h1>");
+});
+
+app.get("/secret", (req, res) => {
+  if (req.session.isVerified == true) {
+    res.send("<h1>Here is my secret - I Love You ~ ~ 😘😘</h1>");
+  } else {
+    console.log(req.session);
+    res.status(403).send("<h1>You are not authorized to see my secret!😡</h1>");
+  }
 });
 
 app.get("/index.html", (req, res) => {
@@ -118,6 +111,7 @@ app.get("/weather/:city", async (req, res) => {
   let newTemp = kToC(temp);
   res.render("02.weatherApi.ejs", { weatherData, newTemp });
 });
+
 app.get("/joke", async (req, res) => {
   const url = "https://v2.jokeapi.dev/joke/Any";
   const response = await fetch(url);
@@ -134,263 +128,8 @@ app.get("/joke", async (req, res) => {
   res.render("03.joke.ejs", { joke, setup, delivery });
 });
 
-app.get("/studentsApi", async (req, res) => {
-  try {
-    let studentsData = await Student.find({});
-    if (studentsData != "") {
-      res.send(studentsData);
-    } else {
-      res.status(404).send({ studentsData: "The data not found." });
-    }
-  } catch {
-    res.status(404).send({ studentsData: "The data not found." });
-  }
-});
-app.get("/studentsApi/:id", async (req, res) => {
-  let { id } = req.params;
-  try {
-    let studentsData = await Student.findOne({ id });
-    if (studentsData !== null) {
-      res.send(studentsData);
-    } else {
-      res.status(404).send({ studentsData: "The data not found." });
-    }
-  } catch {
-    res.status(404).send({ studentsData: "The data not found." });
-  }
-});
-
-app.post("/studentsApi", (req, res) => {
-  let { id, name, age, merit, other } = req.body;
-  let newStudent = new Student({
-    id,
-    name,
-    age,
-    scholarship: { merit, other },
-  });
-  newStudent
-    .save()
-    .then(() => {
-      console.log("Student accepted.");
-      res.send({ message: "Successfully post a new student." });
-    })
-    .catch((error) => {
-      // console.log(e);
-      console.log(error.message);
-      if (
-        error.code == 11000 &&
-        error.message.includes("E11000 duplicate key error collection")
-      ) {
-        res.send({ message: "Id is repeated." });
-      } else {
-        console.log("Student not accepted.");
-        // console.log(e);
-        // res.send({ message: "Some keys exceed the limit." });
-        res.status(404).send(error);
-      }
-    });
-});
-
-app.put("/studentsApi", async (req, res) => {
-  let { id, name, age, merit, other } = req.body;
-  try {
-    let d = await Student.findOneAndReplace(
-      { id },
-      { id, name, age, scholarship: { merit, other } },
-      { new: true, runValidators: true }
-    );
-    console.log(d);
-    res.send({ message: "Data is being updated using the 'put' method." });
-  } catch (e) {
-    if (e.name === "ValidationError") {
-      res.status(400).send({ message: "Validation error", errors: e.errors });
-    } else {
-      res.status(500).send({ message: "Internal server error", error: e });
-    }
-  }
-});
-
-app.patch("/studentsApi", async (req, res) => {
-  console.log(req.body);
-  let { id, name, age, merit, other } = req.body;
-  try {
-    let d = await Student.findOneAndUpdate(
-      { id },
-      { id, name, age, scholarship: { merit, other } },
-      { new: true, runValidators: true }
-    );
-    console.log(d);
-    if (d != null) {
-      res.send({ message: "Data is being updated using the 'put' method." });
-    } else {
-      res.status(404).send({ message: "ID not found." });
-    }
-  } catch (e) {
-    if (e.name === "ValidationError") {
-      res.status(400).send({ message: "Validation error", errors: e.errors });
-    } else {
-      res.status(500).send({ message: "Internal server error", error: e });
-    }
-  }
-});
-
-app.delete("/studentsApi/all", (req, res) => {
-  let d = Student.deleteMany({})
-    .then((meg) => {
-      console.log(meg);
-      if (meg.deletedCount != 0) {
-        res.send({ message: "Deleted all data successfully." });
-      } else res.status(404).send({ message: "Delete has failed." });
-    })
-    .catch((e) => {
-      console.log(meg);
-      res.status(404).send({ message: "Delete has failed." });
-    });
-});
-
-app.delete("/studentsApi/:id", (req, res) => {
-  let { id } = req.params;
-  let d = Student.deleteOne({ id })
-    .then((meg) => {
-      console.log(meg);
-      if (meg.deletedCount != 0) {
-        res.send({ message: "Deleted successfully." });
-      } else res.status(404).send({ message: "Delete has failed." });
-    })
-    .catch((e) => {
-      res.status(404).send({ message: "Delete has failed." });
-    });
-});
-
-app.get("/students", async (req, res) => {
-  try {
-    let studentsData = await Student.find();
-    res.render("04.studentsList.ejs", { studentsData });
-  } catch {
-    res.send("<h1>Error with finding data.</h1>");
-  }
-});
-
-app.get("/students/insert", (req, res) => {
-  res.render("04.studentInsert.ejs");
-});
-
-app.get("/students/:id", async (req, res) => {
-  let { id } = req.params;
-  try {
-    let personData = await Student.findOne({ id: id });
-    if (personData !== null) {
-      res.render("04.personalPage.ejs", { personData });
-    } else {
-      res.render("04.studentNotFound.ejs");
-    }
-  } catch {
-    res.render("04.studentFindError.ejs");
-  }
-});
-
-app.post("/students/insert", (req, res) => {
-  let { id, name, age, merit, other } = req.body;
-  // console.log(req.body);
-  let newStudent = new Student({
-    id: id,
-    name: name,
-    age: age,
-    scholarship: {
-      merit: merit,
-      other: other,
-    },
-  });
-  newStudent
-    .save()
-    .then(() => {
-      console.log("Student accepted.");
-      res.render("04.accept.ejs");
-    })
-    .catch((e) => {
-      console.log("Student not accepted.");
-      // console.log(e);
-      if (e.code == 11000 && e.message.includes("E11000 duplicate key error")) {
-        res.send(
-          "<h1 style='color:red; font-size: 10rem'>The same ID is not allowed.</h1>"
-        );
-      } else {
-        res.render("04.reject.ejs");
-      }
-    });
-});
-
-app.get("/students/edit/:id", async (req, res) => {
-  let { id } = req.params;
-  try {
-    let personData = await Student.findOne({ id });
-    if (personData !== null) {
-      res.render("04.studentEdit.ejs", { personData });
-    } else {
-      res.render("04.studentNotFound.ejs");
-    }
-  } catch {
-    res.render("04.studentFindError.ejs");
-  }
-});
-app.put("/students/edit/:id", async (req, res) => {
-  let { id, name, age, merit, other } = req.body;
-  try {
-    let personData = await Student.findOneAndUpdate(
-      req.params,
-      { id, name, age, scholarship: { merit, other } },
-      { new: true, runValidators: true }
-    );
-    res.redirect(`/students/${id}`);
-  } catch (e) {
-    if (id != req.params.id && e.codeName == "DuplicateKey") {
-      res.render("04.ErrorSameID.ejs");
-    } else {
-      res.render("04.studentFindError.ejs");
-    }
-  }
-});
-
-app.get("/students/delete/:id", async (req, res) => {
-  let { id } = req.params;
-  try {
-    let personData = await Student.findOne({ id });
-    if (personData !== null) {
-      res.render("04.studentDelete.ejs", { personData });
-    } else {
-      res.render("04.studentNotFound.ejs");
-    }
-  } catch {
-    res.render("04.studentFindError.ejs");
-  }
-});
-
-app.delete("/students/delete/:id", (req, res) => {
-  let { id } = req.params;
-  console.log(req.params);
-  try {
-    Student.deleteOne({ id })
-      .then((meg) => {
-        console.log(meg);
-        res.render("04.deleteSuccessfully.ejs");
-      })
-      .catch((e) => {
-        console.log(e);
-        res.render("04.deleteFailed.ejs");
-      });
-  } catch {
-    res.render("04.studentFindError.ejs");
-  }
-});
-
-app.get("/truth", (req, res) => {
-  function tag() {
-    let inputString = "";
-    let replacedString = inputString.replace(/，/g, ",");
-    return replacedString;
-  }
-
-  res.send(`${tag()}`);
+app.get("/layout", (req, res) => {
+  res.sendFile("/layout/index.html");
 });
 
 app.get("/*", (req, res) => {

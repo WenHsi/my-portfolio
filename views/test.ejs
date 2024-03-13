@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test</title>
+    <script src="/fusen/js/jquery-3.7.1.min.js"></script>
+    <script>
+      $(document).ready(() => {
+        $(".btn-ctrl").click(() => {
+          $(".btn-toggle").toggleClass("x");
+        });
+      });
+    </script>
+
+    <style>
+      .container {
+        margin: 0 auto;
+        width: 70%;
+      }
+
+      .btn-ctrl {
+        text-align: center;
+        background-color: black;
+        color: white;
+        cursor: pointer;
+      }
+      .btn-toggle {
+        padding: 3rem 1rem;
+        background-color: #ccc;
+      }
+      .btn-toggle.x {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a class="show">x</a>
+      <div class="btn-ctrl">click me!</div>
+      <div class="btn-toggle">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae amet
+        recusandae minima, tenetur eaque fugiat aliquid repellendus nemo debitis
+        laudantium obcaecati alias assumenda vel magni. Voluptatibus iusto esse
+        reprehenderit illum?
+      </div>
+    </div>
+  </body>
+</html>
