@@ -9,7 +9,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Successfully connected to mongoDB.");
+    console.log("Successfully connected to mongoDB of studentDB.");
   })
   .catch((e) => {
     console.log("Connection failed.");

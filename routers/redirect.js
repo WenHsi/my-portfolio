@@ -7,5 +7,4 @@ router.get("/v", (req, res) => {
 router.get("/cs", (req, res) => {
   res.redirect("https://lkt-asiaeast-web.jointell.net/rooms/cs");
 });
-
 export default router;

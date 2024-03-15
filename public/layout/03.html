@@ -31,7 +31,132 @@
     <link rel="stylesheet" href="/styles/cssreset.css" />
     <link rel="stylesheet" href="/styles/layout/" />
     <title>人員介紹卡片 NO003</title>
-    <style></style>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        font-family: "Noto Sans TC", sans-serif;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #003;
+        flex-wrap: wrap;
+      }
+      .warp {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+      .warp > .item {
+        width: 268px;
+        border: 1px solid #bbb;
+        margin: 15px;
+        transition: 0.45s;
+      }
+      .warp > .item > img {
+        width: 100%;
+        height: 300px;
+        vertical-align: middle;
+      }
+      .warp > .item > .content {
+        position: relative;
+        padding: 10px;
+        background-color: white;
+        line-height: 1.5;
+        /* height: 210px; */
+        text-align: center;
+        letter-spacing: 1px;
+      }
+      .warp > .item > .content::after {
+        box-sizing: border-box;
+        position: absolute;
+        top: -40px;
+        left: 0;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        content: " ";
+        border-top: 40px solid transparent;
+        border-left: 134px solid #fff;
+        border-right: 134px solid #fff;
+        border-bottom: 1px solid #fff;
+      }
+      .warp > .item > .content > h3 {
+        position: relative;
+        font-size: 30px;
+        border-bottom: 1.5px solid #ccc;
+        padding-bottom: 0.6rem;
+        margin-bottom: 0.3rem;
+        font-weight: 700;
+        transition: 0.4s;
+      }
+      .warp > .item > .content > p {
+        font-size: 16px;
+        font-weight: 400;
+        transition: 0.4s;
+      }
+      .warp > .item:hover > .content::after {
+        border-left-color: rgb(255, 160, 36);
+        border-right-color: rgb(255, 160, 36);
+        border-bottom-color: rgb(255, 160, 36);
+      }
+      .warp > .item:hover .content,
+      .content::after {
+        background: linear-gradient(0deg, rgb(226, 75, 15), rgb(255, 160, 36));
+        color: #fff;
+      }
+      .warp > .item:hover .content h3 {
+        border-bottom: 1.5px solid #fff;
+      }
+
+      .warp > .item:hover {
+        transform: translateY(-50px);
+      }
+    </style>
+    <script>
+      document.body.addEventListener("touchstart", function () {
+        //...空函数即可
+      });
+    </script>
   </head>
-  <body></body>
+  <body>
+    <div class="warp">
+      <div class="item">
+        <img src="https://picsum.photos/500/500?random=513" alt="photo" />
+        <div class="content">
+          <h3>婖臻</h3>
+          <p>
+            潛心探索藝術與科技的奧秘。對於文字、音樂與程式設計充滿熱情。追求靈感與創意的交匯點，總是樂於挑戰新的思維模式。希望透過創作與學習，不斷突破自我，與世界分享自己的獨特觀點。
+          </p>
+        </div>
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/500/500?random=514" alt="photo" />
+        <div class="content">
+          <h3>可艾</h3>
+          <p>
+            一個熱愛大自然和冒險的靈魂。無論是在山林間追逐微風，還是在海邊聆聽浪濤聲，我都能找到心靈的寧靜。同時，我也是一個熱情的社交者，喜歡與人交流、分享故事，並與他人共創美好回憶。
+          </p>
+        </div>
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/500/500?random=515" alt="photo" />
+        <div class="content">
+          <h3>丹淳</h3>
+          <p>
+            一位對人生充滿熱情的夢想家。對於探索世界，將每一次的經歷轉化為內心的養分。喜歡閱讀、旅行、品嚐美食，期待在這個多彩的世界上，與志同道合的夥伴一同成長、一同探索未知的領域。
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

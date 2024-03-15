@@ -10,6 +10,9 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import studentsRouter from "./routers/studentsRouter.js";
 import redirect from "./routers/redirect.js";
+import User from "./models/user.js";
+import bcrypt from "bcrypt";
+const saltRounds = 10;
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -37,6 +40,13 @@ app.use(
   })
 );
 app.use(flash());
+const requiredLogin = (req, res, next) => {
+  if (!req.session.isVerified == true) {
+    res.redirect("login");
+  } else {
+    next();
+  }
+};
 app.use("/students", studentsRouter);
 app.use("/redirect", redirect);
 
@@ -51,9 +61,76 @@ app.get("/test", (req, res) => {
 app.get("/fusen", (req, res) => {
   res.sendFile("/fusen/index.html");
 });
+app.get("/secret", requiredLogin, (req, res) => {
+  res.render("secret.ejs");
+});
 
+app.get("/login", (req, res) => {
+  res.render("login.ejs");
+});
+app.post("/login", async (req, res, next) => {
+  const { username, password } = req.body;
+  try {
+    let foundUser = await User.findOne({ username });
+    if (foundUser) {
+      bcrypt.compare(password, foundUser.password, (err, result) => {
+        if (err) {
+          next(err);
+        }
+        if (result === true) {
+          req.session.isVerified = true;
+          res.redirect("secret");
+        } else {
+          res.send("<h1>Username or password not correct.</h1>");
+        }
+      });
+    } else {
+      res.send("<h1>Username or password not correct.</h1>");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 app.get("/signup", (req, res) => {
   res.render("signup.ejs");
+});
+app.post("/signup", async (req, res, next) => {
+  const { username, password } = req.body;
+  try {
+    const findUser = await User.findOne({ username });
+    if (findUser) {
+      res.send("Username has been taken.");
+    } else {
+      bcrypt.genSalt(saltRounds, (err, salt) => {
+        if (err) {
+          next(err);
+        }
+        // console.log("This salt is: " + salt);
+        bcrypt.hash(password, salt, (err, hash) => {
+          if (err) {
+            next(err);
+          }
+          // console.log("Hash value is: " + hash);
+          let newUser = new User({ username, password: hash });
+          try {
+            newUser
+              .save()
+              .then(() => {
+                res.send("Data has been saved.");
+              })
+              .catch((e) => {
+                console.log(e);
+                res.send("Error!");
+              });
+          } catch (err) {
+            next(err);
+          }
+        });
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.get("/session", (req, res) => {
